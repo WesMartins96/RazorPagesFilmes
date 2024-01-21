@@ -1,0 +1,91 @@
+﻿@page
+@model RazorPagesFilmes.Pages.Filmes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>RAZOR FILMES</h1>
+
+<p>
+    <a asp-page="Create">Adicionar Filme</a>
+</p>
+
+@* <form>
+    <p>
+        <select class="form-select" asp-for="FilmeGenero" asp-items="@Model.Generos">
+            <option value="">Todos</option>
+        </select>
+
+        Buscar Filme: <input type="text" asp-for="TermoBusca" />
+        <input class="btn-success" type="submit" value="Buscar"/>
+    </p>
+</form> *@
+<form class="form-inline">
+    <label for="FilmeGenero" class="mr-2">Filtrar por Gênero:</label>
+    <select class="form-control mr-2" id="FilmeGenero" asp-for="FilmeGenero" asp-items="@Model.Generos">
+        <option value="">Todos</option>
+    </select>
+
+    <label for="TermoBusca" class="mr-2">Buscar Filme:</label>
+    <input type="text" class="form-control mr-2" id="TermoBusca" asp-for="TermoBusca" />
+    <button type="submit" class="btn btn-success">Buscar</button>
+</form>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Filme[0].Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filme[0].DataLancamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filme[0].Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filme[0].Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Filme[0].Nota)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Filme)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataLancamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nota)
+                </td>
+                <td>
+                    <a class="btn-outline-primary" asp-page="./Edit" asp-route-id="@item.ID">Editar</a> |
+                    <a class="btn-outline-info" asp-page="./Details" asp-route-id="@item.ID">Detalhes</a> |
+                    <a class="btn-outline-danger" asp-page="./Delete" asp-route-id="@item.ID">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        window.onload = function () {
+            // Não há necessidade de recarregar a página aqui
+        };
+    </script>
+}
